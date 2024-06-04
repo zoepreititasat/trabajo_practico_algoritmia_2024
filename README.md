@@ -1,4 +1,4 @@
-﻿# Trabajo Practico Algoritmia 2024
+﻿# Trabajo Práctico Algoritmia 2024
 ## Fundamentos de Informática/Introducción a la Algoritmia.
 
 Una empresa de turismo desea lanzar una aplicación que permita a sus usuarios
