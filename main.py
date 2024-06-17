@@ -9,6 +9,7 @@ DESTINOS_DISPONIBLES = [
 
 #Creamos funciones para hacer un programa modular
 
+
 #Creamos un ciclo para generar los km aleatoreos para la lista de destinos disponibles
 def agregarDisitanciaAleatoria(DESTINOS_DISPONIBLES):
     km_destinos_disponibles = []
@@ -30,6 +31,16 @@ def imprimirDestinos(lista_destinos, lista_km):
         indice += 1
     print("-1) Finalizar Viaje")
 
+#Funcion que evalua que sea un número entero
+def esInt(viaje):
+    if viaje == "-1":
+        return True
+    for i in viaje:
+        if i not in "0123456789":
+            return False
+    return True
+#devuleve true si el numero ingresado(viaje) esta en la lista de opciones
+#cada carcter de viaje tiene que ser un digito, si uno no lo es devuelve false
 
 #Creamos un ciclo que nos permita elegir un destino entre los números 1 y
 #el largo de la lista de destinos (5) y que no permita elegir 2 veces el mismo destino
@@ -38,6 +49,7 @@ def esViajeValido(viaje, recorrido):
     for destino in recorrido:
         if viaje == destino + 1:
             yaFueVisitado = True
+
     return (viaje > 0
             and viaje <= len(DESTINOS_DISPONIBLES)) and not yaFueVisitado
 
@@ -74,7 +86,6 @@ def ordenarDestinos(_recorrido_km, _recorrido):
                 aux = _recorrido_km[i]
                 _recorrido_km[i] = _recorrido_km[j]
                 _recorrido_km[j] = aux
-
                 aux = _recorrido[i]
                 _recorrido[i] = _recorrido[j]
                 _recorrido[j] = aux
@@ -83,10 +94,7 @@ def ordenarDestinos(_recorrido_km, _recorrido):
 
 #Creamos una funcion que imprime el viaje ya ordenado de menor a mayor distancia
 def imprimirViajeCompleto(recorrido, recorrido_kms, km_destinos_disponibles):
-    print("recorrido", recorrido)
-    print("recorrido_kms", recorrido_kms)
     destinosOrdenados = ordenarDestinos(recorrido_kms, recorrido)
-    print("destinosOrdenados", destinosOrdenados)
     indice = 0
     while indice < len(destinosOrdenados):
         destino = destinosOrdenados[indice]
@@ -109,17 +117,22 @@ distancias = agregarDisitanciaAleatoria(len(DESTINOS_DISPONIBLES))
 while viaje != -1:
     print()
     imprimirDestinos(DESTINOS_DISPONIBLES, distancias)
-    viaje = (int(input("Ingrese el número del destino al que quere viajar: ")))
-    print("Entrada usuario: ", viaje)
-    print()
-    if viaje == -1:
-        print("Carga terminada: ")
+    viaje = input("Ingrese el número del destino al que quere viajar: ")
+    if (esInt(viaje)):
+        viaje = int(viaje)
+        print("Entrada usuario: ", viaje)
+        print()
 
-    elif (esViajeValido(viaje, recorrido)):
-        recorrido.append(viaje - 1)
-        recorrido_kms.append(distancias[viaje - 1])
+        if viaje == -1:
+            print("Carga terminada: ")
+
+        elif (esViajeValido(viaje, recorrido)):
+            recorrido.append(viaje - 1)
+            recorrido_kms.append(distancias[viaje - 1])
+        else:
+            print("- Destino inválido -")
     else:
-        print("- Destino inválido -")
+        print("Error: No es un número entero.")
 
 cant_tot_km_recorridos = calcularDistanciaRecorrida(distancias, recorrido)
 
@@ -135,3 +148,4 @@ if cant_tot_km_recorridos != 0:
     imprimirViajeCompleto(recorrido, recorrido_kms, distancias)
 else:
     print("No se selecciono ningún destino")
+
